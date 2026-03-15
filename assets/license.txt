@@ -1,0 +1,5 @@
+NovaPDF v1.0.0 - Licencia de Uso
+=================================
+Software gratuito para uso personal.
+Todos los datos se almacenan localmente.
+NovaPDF no recopila ni transmite datos personales.

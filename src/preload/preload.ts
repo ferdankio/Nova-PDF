@@ -1,0 +1,25 @@
+import { contextBridge, ipcRenderer } from 'electron'
+
+contextBridge.exposeInMainWorld('electronAPI', {
+  minimize:    () => ipcRenderer.invoke('window:minimize'),
+  maximize:    () => ipcRenderer.invoke('window:maximize'),
+  close:       () => ipcRenderer.invoke('window:close'),
+  openFile:    () => ipcRenderer.invoke('file:open'),
+  readFile:    (p: string) => ipcRenderer.invoke('file:read', p),
+  fileExists:  (p: string) => ipcRenderer.invoke('file:exists', p),
+  showInFolder:(p: string) => ipcRenderer.invoke('file:showInFolder', p),
+  addDocument:      (d: any)              => ipcRenderer.invoke('db:addDocument', d),
+  getDocuments:     ()                    => ipcRenderer.invoke('db:getDocuments'),
+  deleteDocument:   (id: number)          => ipcRenderer.invoke('db:deleteDocument', id),
+  updateLastPage:   (id: number, p: number) => ipcRenderer.invoke('db:updateLastPage', id, p),
+  searchDocuments:  (q: string)           => ipcRenderer.invoke('db:searchDocuments', q),
+  addAnnotation:    (a: any)              => ipcRenderer.invoke('db:addAnnotation', a),
+  getAnnotations:   (id: number)          => ipcRenderer.invoke('db:getAnnotations', id),
+  deleteAnnotation: (id: number)          => ipcRenderer.invoke('db:deleteAnnotation', id),
+  updateAnnotation: (id: number, c: string) => ipcRenderer.invoke('db:updateAnnotation', id, c),
+  addBookmark:      (b: any)              => ipcRenderer.invoke('db:addBookmark', b),
+  getBookmarks:     (id: number)          => ipcRenderer.invoke('db:getBookmarks', id),
+  deleteBookmark:   (id: number)          => ipcRenderer.invoke('db:deleteBookmark', id),
+  getSetting:       (k: string)           => ipcRenderer.invoke('settings:get', k),
+  setSetting:       (k: string, v: string) => ipcRenderer.invoke('settings:set', k, v),
+})

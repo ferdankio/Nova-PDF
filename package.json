@@ -1,0 +1,62 @@
+{
+  "name": "novapdf",
+  "version": "1.0.0",
+  "description": "NovaPDF - Lector PDF privado y moderno para Windows",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "build:renderer": "vite build",
+    "build:main": "tsc -p tsconfig.main.json",
+    "dist": "npm run build:renderer && npm run build:main && electron-builder --win nsis portable --x64"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "pdfjs-dist": "^4.0.379"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  },
+  "build": {
+    "appId": "com.novapdf.app",
+    "productName": "NovaPDF",
+    "copyright": "Copyright 2025 NovaPDF",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "!node_modules/.cache"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis",     "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "artifactName": "NovaPDF-${target}-${version}.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NovaPDF",
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "NovaPDF-Portable-${version}.exe"
+    }
+  }
+}
